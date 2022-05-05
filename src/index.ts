@@ -41,7 +41,8 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 
 app.post('/videos', (req: Request, res: Response) => {
     if (typeof req.body.title !== "string" || req.body.title?.trim() === "" || req.body.title.length >= 40) {
-      return  res.send(400)
+      return  res.status(400).send({errorsMessages: [{ message: 'string', field: "title" }], resultCode: 1})
+
     }
     const newVideo = {
         id: +(new Date()),
@@ -70,7 +71,7 @@ app.delete('/videos/:id',(req: Request, res: Response)=>{
 
 app.put('/videos/:id',(req: Request, res: Response)=>{
     if (typeof req.body.title !== "string" || req.body.title?.trim() === "" || req.body.title.length >= 40) {
-        return res.send(400)
+        return  res.status(400).send({errorsMessages: [{ message: 'string', field: "title" }], resultCode: 1})
     }
 
     const id = +req.params.id;
